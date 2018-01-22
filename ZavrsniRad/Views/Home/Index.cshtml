@@ -1,0 +1,233 @@
+﻿@model IEnumerable<ZavrsniRad.Models.Jelo>
+
+@section JavaScript
+{
+    <script src="~/Scripts/listEditor.js"></script>
+}
+<script src="~/Scripts/jquery-1.9.0.js"></script>
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+<div class="row col-md-12">
+    <div class="pull-left">
+        <img src="~/Content/Pictures/DobroDosli.jpg" alt="..." />
+    </div>
+    <br />
+    <a class="btn nice-green-color btn-default btn-lg pull-right" href='@Url.Action("Novi", "Recept")'>
+        <span class="glyphicon glyphicon-plus"></span>&nbsp Dodaj recept
+    </a>
+</div>
+
+<div class="col-md-12">
+    <h4>Za početak pogledajte naše najnovije recepte:</h4>
+    <br />
+</div>
+
+
+
+<br />
+
+<div class="row"></div>
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="item active">
+            @{
+                ZavrsniRad.Models.Jelo item = Model.ElementAt(0);
+                byte[] photo = item.SlikaJela;
+                string imgSrc = null;
+                if (photo != null)
+                {
+                    var base64 = Convert.ToBase64String(photo);
+                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                }
+            
+            }
+            <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })'>
+                <img src="@imgSrc" alt="Nema slike">
+            </a>
+            <div class="carousel-caption">
+                <h3>@item.NazivJela</h3>
+                <p></p>
+            </div>
+        </div>
+
+
+        <div class="item">
+
+            @{
+                ZavrsniRad.Models.Jelo item2 = Model.ElementAt(1);
+                byte[] photo2 = item2.SlikaJela;
+                string imgSrc2 = null;
+                if (photo2 != null)
+                {
+                    var base64 = Convert.ToBase64String(photo2);
+                    imgSrc2 = String.Format("data:image/gif;base64,{0}", base64);
+
+                }
+            
+            }
+            <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item2.JeloID })'>
+                <img src="@imgSrc2" alt="Nema slike"/>
+            </a>
+            <div class="carousel-caption">
+                <h3>@item2.NazivJela</h3>
+                <p></p>
+            </div>
+        </div>
+
+
+        <div class="item">
+
+            @{
+                ZavrsniRad.Models.Jelo item3 = Model.ElementAt(2);
+                byte[] photo3 = item3.SlikaJela;
+                string imgSrc3 = null;
+                if (photo3 != null)
+                {
+                    var base64 = Convert.ToBase64String(photo3);
+                    imgSrc3 = String.Format("data:image/gif;base64,{0}", base64);
+
+                }
+            
+            }
+            <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item3.JeloID })'>
+                <img src="@imgSrc3" alt="Nema slike"/>
+            </a>
+            <div class="carousel-caption">
+                <h3>@item3.NazivJela</h3>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
+</div>
+<br />
+<div>
+    <h4>Sad možete:</h4>
+</div>
+<div class="row col-md-12">
+    <br />
+    <div class="pull-left col-md-6">
+        <div class="row">
+            <a class="btn nice-green-color btn-default btn-md pull-left" href='@Url.Action("Pretraga", "Home")'>
+                <span class="glyphicon glyphicon-search"></span>&nbsp Pretraživati
+            </a>
+        </div>
+        <br />
+        <div class="row">
+            <a class="btn nice-green-color btn-default btn-md pull-left" href='@Url.Action("Recepti", "Home")'>
+                <span class="glyphicon glyphicon-cutlery"></span>&nbsp Pregledavati
+            </a>
+        </div>
+        <br />
+        <div class="row">
+            <a class="btn nice-green-color btn-default btn-md pull-left" href='@Url.Action("Novi", "Recept")'>
+                <span class="glyphicon glyphicon-plus"></span>&nbsp Dodavati
+            </a>
+        </div>
+        <br />
+        <div class="pull-left">
+            <h4>i ocjenjivati sva jela.&nbsp <span class="glyphicon glyphicon-ok"></span></h4>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 pull-right">
+        <div class="thumbnail grey">
+            <blockquote>
+                <p>
+                    <span class="col-md-offset-6 glyphicon glyphicon-pushpin">&nbsp</></span>
+                <p>Nema iskrenije ljubavi od ljubavi prema hrani.</p>
+                <footer>George Bernard Shaw</footer>
+            </blockquote>
+        </div>
+    </div>
+</div>
+
+
+
+@* <blockquote>
+        <p>Najvažnije svojstvo kuhara je točnost: to se odnosi i na uzvanike.</p>
+        <footer>Jean Anthelme Brillat Savarin</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Objedovanje je znak na temelju kojega se prepoznaje nečija unutarnja ljepota.</p>
+        <footer>Theodore Zeldin</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Onaj tko prima prijatelje i ne pridaje nikakvu osobnu pozornost obroku koji im je pripravljen, nije dostojan imati prijatelje.</p>
+        <footer>Jean Anthelme Brillat Savarin</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Stol je jedino mjesto uz koje se ne dosađujemo već tijekom prvog sata.</p>
+        <footer>Jean Anthelme Brillat Savarin</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Reci mi što jedeš i na ću ti reći tko si.</p>
+        <footer>Jean Anthelme Brillat Savarin</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Nakon dobre večere, može se oprostiti svima. Čak i vlastitim rođacima.</p>
+        <footer>Oscar Wilde</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Kuharstvo podrazumijeva: englesku temeljitost, francusku umjetnost, arapsku gostoljubivost… podrazumijeva poznavanje voća, začina, umaka… podrazumijeva pažljivost, inventivnost i pozornost.</p>
+        <footer>John Ruskin</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Jedna od lijepih stvari u životu je što imamo pravo stati, ma što radili, i posvetiti svoju pažnju hrani.</p>
+        <footer>Luciano Pavarotti</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Okusi se ne rađaju nego stvaraju.</p>
+        <footer>Mark Twain</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Neka vaša hrana bude lijek, a vaš lijek vaša hrana.</p>
+        <footer>Hipokrat</footer>
+    </blockquote>
+
+    <blockquote>
+        <p>Isti čovjek može biti tvrdi pesimista prije ručka i uvjereni optimista nakon ručka.</p>
+        <footer>Aldous Leonard Huxley</footer>
+    </blockquote>*@
+<div class="row">
+    <br />
+</div>
+<div id="pocetna">
+    <div class="row">
+        <br />
+    </div>
+    <img src="~/Content/Pictures/DobarTek.jpg" alt="..." />
+</div>

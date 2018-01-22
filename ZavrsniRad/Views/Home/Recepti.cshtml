@@ -1,0 +1,167 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model ZavrsniRad.Models.SearchViewModel
+
+@{
+    ViewBag.Title = "Recepti";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" 
+  type="text/css" />
+
+
+<div class="row col-md-12">
+    <div class="pull-left">
+        <div>
+            <h2 class="pull-left"><span class="glyphicon glyphicon-cutlery"></span>&nbspRecepti</h2>
+
+        </div>
+
+        <br />
+        <div class="row sort">
+
+            <a href='@Url.Action("Recepti", "Home", new RouteValueDictionary() {
+                
+                {"Sort", ViewBag.ImeSort},
+
+               { "JeloID", Model.JeloID },
+
+               { "GrupaJelaID", Model.GrupaJelaID },
+               
+               { "OcjenaID", Model.OcjenaID },
+
+               { "Sastojci", Model.Sastojci } })' class="btn btn-default">
+                <span class="glyphicon glyphicon-sort-by-alphabet"></span></a>
+            <a href='@Url.Action("Recepti", "Home", new RouteValueDictionary() {                 
+                {"Sort", ViewBag.ImeSortDesc},
+
+               { "JeloID", Model.JeloID },
+
+               { "GrupaJelaID", Model.GrupaJelaID },
+               
+               { "OcjenaID", Model.OcjenaID },
+
+               { "Sastojci", Model.Sastojci } })' class="btn btn-default">
+                <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
+
+
+            <a href='@Url.Action("Recepti", "Home", new RouteValueDictionary() {                 
+                {"Sort", ViewBag.OcjenaSort},
+
+               { "JeloID", Model.JeloID },
+
+               { "GrupaJelaID", Model.GrupaJelaID },
+               
+               { "OcjenaID", Model.OcjenaID },
+
+               { "Sastojci", Model.Sastojci } })' class="btn btn-default">
+                <span class="glyphicon glyphicon-sort-by-order"></span></a>
+            <a href='@Url.Action("Recepti", "Home", new RouteValueDictionary() {                 
+                {"Sort", ViewBag.OcjenaSortDesc},
+
+               { "JeloID", Model.JeloID },
+
+               { "GrupaJelaID", Model.GrupaJelaID },
+               
+               { "OcjenaID", Model.OcjenaID },
+
+               { "Sastojci", Model.Sastojci } })' class="btn btn-default">
+                <span class="glyphicon glyphicon-sort-by-order-alt"></span></a>
+        </div>
+    </div>
+    <br />
+    <a class="btn nice-green-color btn-default btn-lg pull-right" href='@Url.Action("Novi", "Recept")'>
+        <span class="glyphicon glyphicon-plus"></span>&nbsp Dodaj recept
+    </a>
+
+</div>
+
+
+<div class="row"></div>
+<br />
+
+
+@*@Html.ActionLink("Ime", "Recepti", new { sortOrder = ViewBag.ImeSortParm })
+@Html.ActionLink("Ocjena", "Recepti", new { sortOrder = ViewBag.OcjenaSortParm })*@
+
+@{
+    int i = 0;
+    foreach (var item in Model.SearchResults)
+    {
+
+        byte[] photo = item.SlikaJela;
+        string imgSrc = null;
+        if (photo != null)
+        {
+            var base64 = Convert.ToBase64String(photo);
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+
+
+        if (i == 2)
+        {
+            i = 0;
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })'>
+                <img src="@imgSrc" alt="Nema slike" />
+                    </a>
+                <div class="caption">
+                    <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })' class="naslovi">
+                        <h3>@Html.DisplayFor(modelItem => item.NazivJela)
+                        </h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+        }
+
+        else
+        {
+            i++;    
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })'>
+            <img src="@imgSrc" alt="Nema slike" />
+                </a>
+            <div class="caption">
+                <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })' class="naslovi">
+                    <h3>@Html.DisplayFor(modelItem => item.NazivJela)
+                    </h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+        }
+    }
+}
+
+<div class="pagedList pull-right">
+    @*@Html.PagedListPager(Model, page => Url.Action("Recepti", "Home", new { page, sortOrder = ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter }),
+    PagedListRenderOptions.MinimalWithPageCountText)*@
+</div>
+
+
+<div class="pagedList pull-right">
+    @Html.PagedListPager(Model.SearchResults,
+
+            page => Url.Action("Recepti", new RouteValueDictionary() {
+                {"Page", page},
+                
+                {"Sort", ViewBag.CurrentSort},
+
+               { "JeloID", Model.JeloID },
+
+               { "GrupaJelaID", Model.GrupaJelaID },
+               
+               { "OcjenaID", Model.OcjenaID },
+
+               { "Sastojci", Model.Sastojci }
+               
+            }),
+
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>

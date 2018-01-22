@@ -1,0 +1,60 @@
+﻿@model ZavrsniRad.Models.OcjenaViewModel
+
+@{
+    Layout = null;
+}
+
+<fieldset>
+    <legend>Ocjena jela</legend>
+    <p>Prosječna ocjena:&nbsp @Html.DisplayFor(model => model.ProsjecnaOcjena)</p>
+    
+    <p>Broj ocjena:&nbsp @Html.DisplayFor(model => model.BrojGlasova)</p>
+    
+</fieldset>
+
+@if (!(Request.IsAuthenticated && ViewData.ContainsKey("FullName")))
+{ 
+    <div>
+        Prijavite se i ocijenite jelo. <a class="btn btn-default nice-green-color btn-sm" href="@Url.Action("LogIn", "User")">
+            <span class="glyphicon glyphicon-log-in"></span>&nbsp Log in
+        </a>
+    </div>
+}
+
+else if(Model.Ocijenjeno) {
+    <div><span class="glyphicon glyphicon-ok"></span>&nbspOcijenjeno</div>
+}
+
+else
+{
+    using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <div>
+        <div class="row">
+            <br />
+        </div>
+       
+
+            <div>Ocijeni jelo</div>
+
+            @Html.ValidationSummary(true, "Niste unijeli ocjenu.")
+            <div class="form-group">
+
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-thumbs-down">&nbsp</span>
+                    @foreach (var a in Model.ocjene)
+                    {
+                        <span>
+                            @Html.RadioButtonFor(model => model.OcjenaID, a.OcjenaID)  @a.Vrijednost
+                            &nbsp</span>
+                    }
+                    <span class="glyphicon glyphicon-thumbs-up">&nbsp </span>
+                    <button type="submit" class="btn btn-default btn-sm nice-green-color">Ocijeni</button>
+                </div>
+            </div>
+
+       
+    </div>
+    }
+}
+

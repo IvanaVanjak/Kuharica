@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UpravljanjeRecepturamaBazaModel1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="UpravljanjeRecepturamaBazaModel1StoreContainer">
+    <EntitySet Name="GrupaJela" EntityType="UpravljanjeRecepturamaBazaModel1.Store.GrupaJela" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JedinicaMjere" EntityType="UpravljanjeRecepturamaBazaModel1.Store.JedinicaMjere" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Jelo" EntityType="UpravljanjeRecepturamaBazaModel1.Store.Jelo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ocjena" EntityType="UpravljanjeRecepturamaBazaModel1.Store.Ocjena" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OcjenaJela" EntityType="UpravljanjeRecepturamaBazaModel1.Store.OcjenaJela" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Osoba" EntityType="UpravljanjeRecepturamaBazaModel1.Store.Osoba" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sastojak" EntityType="UpravljanjeRecepturamaBazaModel1.Store.Sastojak" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Jelo_GrupaJela" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_Jelo_GrupaJela">
+      <End Role="GrupaJela" EntitySet="GrupaJela" />
+      <End Role="Jelo" EntitySet="Jelo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jelo_Osoba" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_Jelo_Osoba">
+      <End Role="Osoba" EntitySet="Osoba" />
+      <End Role="Jelo" EntitySet="Jelo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OcjenaJela_Jelo" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_OcjenaJela_Jelo">
+      <End Role="Jelo" EntitySet="Jelo" />
+      <End Role="OcjenaJela" EntitySet="OcjenaJela" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OcjenaJela_Ocjena" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_OcjenaJela_Ocjena">
+      <End Role="Ocjena" EntitySet="Ocjena" />
+      <End Role="OcjenaJela" EntitySet="OcjenaJela" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OcjenaJela_Osoba" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_OcjenaJela_Osoba">
+      <End Role="Osoba" EntitySet="Osoba" />
+      <End Role="OcjenaJela" EntitySet="OcjenaJela" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sastojak_JedinicaMjere" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_Sastojak_JedinicaMjere">
+      <End Role="JedinicaMjere" EntitySet="JedinicaMjere" />
+      <End Role="Sastojak" EntitySet="Sastojak" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sastojak_Jelo" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_Sastojak_Jelo">
+      <End Role="Jelo" EntitySet="Jelo" />
+      <End Role="Sastojak" EntitySet="Sastojak" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sastojak_Jelo2" Association="UpravljanjeRecepturamaBazaModel1.Store.FK_Sastojak_Jelo2">
+      <End Role="Jelo" EntitySet="Jelo" />
+      <End Role="Sastojak" EntitySet="Sastojak" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="GrupaJela">
+    <Key>
+      <PropertyRef Name="GrupaJelaID" />
+    </Key>
+    <Property Name="GrupaJelaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Grupa" Type="nchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="JedinicaMjere">
+    <Key>
+      <PropertyRef Name="JedinicaMjereID" />
+    </Key>
+    <Property Name="JedinicaMjereID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Jedinica" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Kratica" Type="nvarchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Jelo">
+    <Key>
+      <PropertyRef Name="JeloID" />
+    </Key>
+    <Property Name="JeloID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NazivJela" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SlikaJela" Type="varbinary(max)" />
+    <Property Name="GrupaJelaID" Type="int" />
+    <Property Name="Recept" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OsobaID" Type="int" />
+  </EntityType>
+  <EntityType Name="Ocjena">
+    <Key>
+      <PropertyRef Name="OcjenaID" />
+    </Key>
+    <Property Name="OcjenaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Vrijednost" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OcjenaJela">
+    <Key>
+      <PropertyRef Name="OcjenaJelaID" />
+    </Key>
+    <Property Name="OcjenaJelaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OsobaID" Type="int" Nullable="false" />
+    <Property Name="JeloID" Type="int" Nullable="false" />
+    <Property Name="OcjenaID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Osoba">
+    <Key>
+      <PropertyRef Name="OsobaID" />
+    </Key>
+    <Property Name="OsobaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Ime" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Prezime" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Lozinka" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Salt" Type="nvarchar" Nullable="false" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Sastojak">
+    <Key>
+      <PropertyRef Name="SastojakID" />
+      <PropertyRef Name="JeloID" />
+    </Key>
+    <Property Name="SastojakID" Type="int" Nullable="false" />
+    <Property Name="JeloID" Type="int" Nullable="false" />
+    <Property Name="Kolicina" Type="decimal" Nullable="false" Scale="4" />
+    <Property Name="JedinicaMjereID" Type="int" />
+  </EntityType>
+  <Association Name="FK_Jelo_GrupaJela">
+    <End Role="GrupaJela" Type="UpravljanjeRecepturamaBazaModel1.Store.GrupaJela" Multiplicity="0..1" />
+    <End Role="Jelo" Type="UpravljanjeRecepturamaBazaModel1.Store.Jelo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GrupaJela">
+        <PropertyRef Name="GrupaJelaID" />
+      </Principal>
+      <Dependent Role="Jelo">
+        <PropertyRef Name="GrupaJelaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jelo_Osoba">
+    <End Role="Osoba" Type="UpravljanjeRecepturamaBazaModel1.Store.Osoba" Multiplicity="0..1" />
+    <End Role="Jelo" Type="UpravljanjeRecepturamaBazaModel1.Store.Jelo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Osoba">
+        <PropertyRef Name="OsobaID" />
+      </Principal>
+      <Dependent Role="Jelo">
+        <PropertyRef Name="OsobaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OcjenaJela_Jelo">
+    <End Role="Jelo" Type="UpravljanjeRecepturamaBazaModel1.Store.Jelo" Multiplicity="1" />
+    <End Role="OcjenaJela" Type="UpravljanjeRecepturamaBazaModel1.Store.OcjenaJela" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jelo">
+        <PropertyRef Name="JeloID" />
+      </Principal>
+      <Dependent Role="OcjenaJela">
+        <PropertyRef Name="JeloID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OcjenaJela_Ocjena">
+    <End Role="Ocjena" Type="UpravljanjeRecepturamaBazaModel1.Store.Ocjena" Multiplicity="1" />
+    <End Role="OcjenaJela" Type="UpravljanjeRecepturamaBazaModel1.Store.OcjenaJela" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ocjena">
+        <PropertyRef Name="OcjenaID" />
+      </Principal>
+      <Dependent Role="OcjenaJela">
+        <PropertyRef Name="OcjenaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OcjenaJela_Osoba">
+    <End Role="Osoba" Type="UpravljanjeRecepturamaBazaModel1.Store.Osoba" Multiplicity="1" />
+    <End Role="OcjenaJela" Type="UpravljanjeRecepturamaBazaModel1.Store.OcjenaJela" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Osoba">
+        <PropertyRef Name="OsobaID" />
+      </Principal>
+      <Dependent Role="OcjenaJela">
+        <PropertyRef Name="OsobaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sastojak_JedinicaMjere">
+    <End Role="JedinicaMjere" Type="UpravljanjeRecepturamaBazaModel1.Store.JedinicaMjere" Multiplicity="0..1" />
+    <End Role="Sastojak" Type="UpravljanjeRecepturamaBazaModel1.Store.Sastojak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JedinicaMjere">
+        <PropertyRef Name="JedinicaMjereID" />
+      </Principal>
+      <Dependent Role="Sastojak">
+        <PropertyRef Name="JedinicaMjereID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sastojak_Jelo">
+    <End Role="Jelo" Type="UpravljanjeRecepturamaBazaModel1.Store.Jelo" Multiplicity="1" />
+    <End Role="Sastojak" Type="UpravljanjeRecepturamaBazaModel1.Store.Sastojak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jelo">
+        <PropertyRef Name="JeloID" />
+      </Principal>
+      <Dependent Role="Sastojak">
+        <PropertyRef Name="SastojakID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sastojak_Jelo2">
+    <End Role="Jelo" Type="UpravljanjeRecepturamaBazaModel1.Store.Jelo" Multiplicity="1" />
+    <End Role="Sastojak" Type="UpravljanjeRecepturamaBazaModel1.Store.Sastojak" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jelo">
+        <PropertyRef Name="JeloID" />
+      </Principal>
+      <Dependent Role="Sastojak">
+        <PropertyRef Name="JeloID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

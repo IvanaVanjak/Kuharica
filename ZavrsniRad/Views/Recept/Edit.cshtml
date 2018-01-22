@@ -1,0 +1,128 @@
+﻿@model ZavrsniRad.Models.JeloViewModel
+
+@{
+    ViewBag.Title = "Novi";
+}
+
+<h2>Uredi</h2>
+@section JavaScript
+{
+    <script src="~/Scripts/listEditor.js"></script>
+}
+<script src="~/Scripts/jquery-1.9.0.js"></script>
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+@if (!(Request.IsAuthenticated && ViewData.ContainsKey("FullName")))
+{ 
+    <div class="row">
+        <br />
+        <div class="col-md-offset-1">
+            <h4>Prijavite se kako bi mogli dodavati nove recepte.</h4>
+            <a class="btn nice-green-color btn-sm" href='@Url.Action("LogIn", "User")'>
+                <span class="glyphicon glyphicon-log-in"></span>&nbsp Log in
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+    </div>
+}
+
+else
+{
+
+
+    using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <div class="col-md-7 col-md-offset-3">
+        <div class="row">
+            <br />
+        </div>
+        <fieldset>
+
+            <legend>Dodavanje recepta</legend>
+
+            @Html.ValidationSummary(true, "Unos recepta nije uspio. Provjerite unesene podatke.", new { @class = "field-validation-error" })
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="field-validation-error">
+                    @ViewBag.Message
+
+                </div>
+                <br />
+            }
+            <div class="editor-field">
+
+                @Html.LabelFor(model => model.NazivJela, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.NazivJela, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NazivJela)
+            </div>
+
+            <div class="editor-field">
+                @Html.LabelFor(model => model.SlikaJela, new { @class = "control-label" })
+
+                <div>
+                    @Html.TextBoxFor(model => model.SlikaJela, new { @type = "file", @accept = "image/*", @id = "exampleInputFile" })
+                    @*<input type="file" name="file" accept="image/*" />*@
+                    @*<input type="submit" value="Upload File" />*@
+                </div>
+            </div>
+
+            <div class="editor-field">
+
+                @Html.LabelFor(model => model.GrupaJelaID, new { @class = "control-label" })
+                @foreach (var a in Model.GrupaJelaLista)
+                {
+                    <p>
+                        @Html.RadioButtonFor(model => model.GrupaJelaID, a.GrupaJelaID)  @a.Grupa
+                    </p>
+                }
+
+            </div>
+
+            <div class="editor-field">
+
+                @Html.LabelFor(model => model.Recept, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Recept, new { @rows = "10", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Recept)
+
+            </div>
+
+
+            <fieldset>
+                <legend>Sastojci</legend>
+
+                <div id="editorRows">
+                    @foreach (var item in Model.ListaSastojaka)
+                    {
+                        Html.RenderPartial("_NoviSastojak", item);
+                    }
+                </div>
+            </fieldset>
+            <div class="row">
+                <a class="btn btn-group-sm pull-right" href="@Url.Action("BlankEditorRow", "Recept")"
+     id="addItem"><span class="glyphicon glyphicon-plus"></span>
+                    Novi sastojak...
+                </a>
+            </div>
+
+            @Html.HiddenFor(model => model.Email, new { @Value = @Html.Encode(User.Identity.Name) })
+
+            <div class="row">
+                <button type="submit" class="btn btn-default nice-green-color">Uredi</button>
+            </div>
+
+            <div class="row">
+                <br />
+            </div>
+
+        </fieldset>
+    </div>
+    }
+}

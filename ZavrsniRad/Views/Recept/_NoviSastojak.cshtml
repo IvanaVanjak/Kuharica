@@ -1,0 +1,65 @@
+﻿@model ZavrsniRad.Models.SastojakViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="editorRow" id="sastojci">
+    @using (Html.BeginCollectionItem("ListaSastojaka"))
+    {       
+        @Html.ValidationSummary(true, "Greška sastojci")
+
+        <div class="form-inline">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SastojakID, new { @class = "sr-only" })
+
+                @Html.DropDownListFor(model => model.SastojakID, new SelectList(Model.listaJela, "JeloID", "NazivJela"), new { @class = "form-control", @placeholder = "Sastojak" })
+
+                @Html.ValidationMessageFor(model => model.SastojakID)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Kolicina, new { @class = "sr-only" })
+
+                @Html.TextBoxFor(model => model.Kolicina, new { @class = "form-control", @placeholder = "Kolicina" })
+
+                @Html.ValidationMessageFor(model => model.Kolicina)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.JedinicaMjereID, new { @class = "sr-only" })
+
+                @Html.DropDownListFor(model => model.JedinicaMjereID, new SelectList(Model.listaJedinica, "JedinicaMjereID", "Kratica"), new { @class = "form-control", @placeholder = "Jedinica" })
+
+                @Html.ValidationMessageFor(model => model.JedinicaMjereID)
+            </div>
+
+            <a href="#" class="deleteRow close">&times;</a>
+
+            @*<div>
+                <label for="jela">Select the fruit:</label>
+                <input type="text" id="jela" name="jela" />
+                <input type="button" id="button1" value="button" />
+            </div>*@
+
+
+            @*<div class="form-group">
+                @Html.HiddenFor(m => m.SastojakID,
+    new { id = "SastojakID1" })
+                <input type="text" class="form-control" id="search" placeholder="Sastojak"/>
+            </div>*@
+
+
+
+            @* <div class="form-group">
+                @Html.HiddenFor(m => m.JedinicaMjereID,
+    new { id = "JedinicaMjereID1" })
+                <input type="text" class="form-control" id="searchJedinica" placeholder="Jedinica mjere"/>
+            </div>
+
+*@
+
+        </div>
+    }
+</div>

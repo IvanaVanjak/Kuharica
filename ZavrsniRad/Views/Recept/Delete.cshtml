@@ -1,0 +1,35 @@
+﻿@model ZavrsniRad.Models.JeloRecept
+
+@{
+    ViewBag.Title = "DeleteConfirmed";
+}
+
+@if (!(Request.IsAuthenticated && ViewData.ContainsKey("FullName")) || !HttpContext.Current.User.Identity.Name.Equals(Model.Email))
+{
+   <h4>Smijete brisati samo svoje recepte.</h4>
+}
+else
+{
+
+    <div class="row col-md-12">
+        <div class="pull-left">
+            <h3>Jeste li sigurni da želite obrisati ovo jelo? &nbsp</h3>
+        </div>
+        <br />
+        <div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" value="Delete" class="btn btn-sm nice-green-color"><span class="glyphicon glyphicon-ok"></span>&nbsp Da</button>
+                <a class="btn nice-green-color btn-sm" href='@Url.Action("ReceptPrikaz", "Recept", new { id = Model.JeloID })'>
+                    <span class="glyphicon glyphicon-remove"></span>&nbsp Ne
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <h2 class="pull-left nice-green-font">@Html.DisplayFor(model => model.NazivJela)</h2>
+    </div>
+    Html.RenderPartial("_ReceptPrikaz", Model);
+}

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ZavrsniRad.Models.Jelo>
+
+@{
+    ViewBag.Title = "Profil.";
+}
+
+@if (!(Request.IsAuthenticated && ViewData.ContainsKey("FullName")))
+{ 
+    <div>Morate se prijaviti kako bi mogli pregledavati vaš profil.</div>
+}
+else
+{
+
+    using (Html.BeginForm())
+    {   
+    <h3 class="pull-left">@((string)(ViewData["FullName"]))</h3>
+    <br />
+    <a class="btn btn-success btn-lg pull-right" href="@Url.Action("Novi", "Recept")">
+        <span class="glyphicon glyphicon-plus"></span>Dodaj recept
+    </a>
+    <br />
+    }
+    <br />
+    <br />
+    <br />
+    <br />
+}

@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @*    @Styles.Render("~/Content/css")*@
+   @* <link rel="stylesheet" type="text/css" href="~/Content/Print.css" media="print">*@
+    @Styles.Render("~/Content/bootstrap.css")
+    <link rel="stylesheet" type="text/css" href="~/Content/MyStyle.css">
+    
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    @*@Styles.Render("~/Content/MyStyle.css")*@
+
+    @*@Scripts.Render("~/bundles/modernizr")*@
+
+    @*<style>
+@@media  only print {
+    #page-body {
+        font-size: 20px;
+        color: red;
+    }
+}
+        </style>*@
+
+</head>
+<body class="container">
+    <header>
+        <nav class="navbar navbar-inverse" role="navigation">
+            <ul class="navbar-nav nav">
+                <li><a href='@Url.Action("Index", "Home")'>
+                    <span class="glyphicon glyphicon-home"></span>&nbspPočetna</a></li>
+                <li><a href='@Url.Action("Recepti", "Home")'>
+                    <span class="glyphicon glyphicon-cutlery"></span>&nbspRecepti</a></li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li><a href='@Url.Action("Profil", "Home")'>
+                        <span class="glyphicon glyphicon-user"></span>&nbspProfil</a></li>
+                
+                }
+                <li><a href='@Url.Action("Pretraga", "Home")'>
+                    <span class="glyphicon glyphicon-search"></span>&nbspPretraga</a></li>
+
+            </ul>
+            <ul class="navbar-nav nav pull-right">
+                @if (Request.IsAuthenticated && ViewData.ContainsKey("FullName"))
+                {
+                
+                    <li>
+                        <a class="disabled-link nice-green-font">@((string)(ViewData["FullName"]))</a>
+                    </li>
+
+
+                    <li>
+                        <a href='@Url.Action("LogOut", "User")'><span class="glyphicon glyphicon-log-out"></span>&nbspLog out</a>
+                    </li>
+                }
+
+                else
+                { 
+                    <li>
+                        <a href='@Url.Action("Login", "User")'><span class="glyphicon glyphicon-log-in"></span>&nbspLog in</a>
+                    </li>
+                    <li>
+                        <a href='@Url.Action("Register", "User")'><span class="glyphicon glyphicon-pencil"></span>&nbspRegister</a>
+                    </li>
+                }
+            </ul>
+
+
+
+            @*  @Html.Partial("_LoginPartial")*@
+
+        </nav>
+        <div class="jumbotron col-md-12 white hidden-print">
+            <img src="~/Content/Pictures/Logo.jpg" alt="Nema slike" class="col-md-4 img-rounded" />
+        </div>
+    </header>
+
+
+    <div id="page-body" class="col-md-12">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+
+    <div class="row">
+        <br />
+    </div>
+
+    <footer class="footer jumbotron col-md-12 hidden-print">
+        <div class="pull-right">Ivana Vanjak</div>
+    </footer>
+
+
+
+
+    @*    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    @RenderSection("JavaScript", required: false)
+</body>
+
+
+</html>

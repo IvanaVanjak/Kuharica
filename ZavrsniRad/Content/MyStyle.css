@@ -1,0 +1,103 @@
+﻿.nice-green-color {
+    background-color: #b5e61d;
+}
+
+.nice-green-font {
+    color: #b5e61d;
+}
+
+.white {
+    background-color: white;
+}
+
+#page-body {
+    border-radius: 5px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.header {
+    display: block;
+    background-color: white;
+}
+
+ul.nav a:hover {
+    color: #b5e61d !important;
+}
+
+a.disabled-link,
+a.disabled-link:visited,
+a.disabled-link:active,
+a.disabled-link:hover {
+    color: #b5e61d !important;
+    pointer-events: none;
+    cursor: default;
+}
+
+a.btn {
+    color: black;
+}
+
+
+#page-body {
+    background-color: white;
+}
+
+body {
+    background-color: #222;
+}
+
+a.naslovi {
+    color: black;
+}
+
+    a.naslovi:hover {
+        color: #b5e61d;
+        text-decoration: none;
+    }
+
+.field-validation-error {
+    color: red;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+}
+
+a.noviRecept {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+    a.noviRecept:hover {
+        color: #999 !important;
+    }
+
+.carousel-inner > .item > a > img {
+    width: 640px;
+    height: 360px;
+}
+
+.carousel {
+    width: 640px;
+    height: 360px;
+}
+
+#carousel-example-generic {
+    margin: 0 auto;
+}
+
+#pocetna {
+    text-align: center;
+}
+
+.grey {
+    background-color: #eee;
+}
+
+.sort {
+    margin-left: 2px;
+}

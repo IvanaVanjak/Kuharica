@@ -1,0 +1,147 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<ZavrsniRad.Models.Jelo>
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" 
+  type="text/css" />
+
+@if (!(Request.IsAuthenticated && ViewData.ContainsKey("FullName")))
+{ 
+    <div class="row">
+        <br />
+        <div class="col-md-offset-1">
+            <h4 class="pull-left">Prijavite se kako bi mogli pregledavati profil. &nbsp </h4>
+            <a class="btn nice-green-color btn-sm" href='@Url.Action("LogIn", "User")'>
+                <span class="glyphicon glyphicon-log-in"></span>&nbsp Log in
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+    </div>
+}
+else
+{
+    <div class="row col-md-12">
+        <div class="pull-left">
+            <div class="pull-left"><h2>@((string)(ViewData["FullName"]))</h2></div>
+            <br />
+            <div class="row sort">
+                <a href='@Url.Action("Profil", "Home", new RouteValueDictionary() {
+                
+                {"Sort", ViewBag.ImeSort} })' class="btn btn-default">
+                    <span class="glyphicon glyphicon-sort-by-alphabet"></span></a>
+
+
+                <a href='@Url.Action("Profil", "Home", new RouteValueDictionary() {                 
+                {"Sort", ViewBag.ImeSortDesc} })' class="btn btn-default">
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
+
+
+                <a href='@Url.Action("Profil", "Home", new RouteValueDictionary() {                 
+                {"Sort", ViewBag.OcjenaSort}})' class="btn btn-default">
+                    <span class="glyphicon glyphicon-sort-by-order"></span></a>
+
+                <a href='@Url.Action("Profil", "Home", new RouteValueDictionary() {                 
+                {"Sort", ViewBag.OcjenaSortDesc}})' class="btn btn-default">
+                    <span class="glyphicon glyphicon-sort-by-order-alt"></span></a>
+            </div>
+        </div>
+        <br />
+        <a class="btn nice-green-color btn-default btn-lg pull-right" href='@Url.Action("Novi", "Recept")'>
+            <span class="glyphicon glyphicon-plus"></span>&nbsp Dodaj recept
+        </a>
+
+    </div>
+  
+    
+    <div class="row"></div>
+    <br />
+    
+    int i = 0;
+    foreach (var item in Model)
+    {
+
+        byte[] photo = item.SlikaJela;
+        string imgSrc = null;
+        if (photo != null)
+        {
+            var base64 = Convert.ToBase64String(photo);
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+        }
+
+
+        if (i == 2)
+        {
+            i = 0;
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })'>
+                <img src="@imgSrc" alt="Nema slike" />
+                    </a>
+                <div class="caption">
+                    <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })' class="naslovi">
+                        <h3>@Html.DisplayFor(modelItem => item.NazivJela)
+                        </h3>
+                    </a>
+                    <p>
+                        @* <a href="#" class="btn btn-success" role="button">Uredi</a>*@
+                        <a href='@Url.Action("Delete", "Recept", new { id = item.JeloID })' class="btn btn-sm nice-green-color" role="button">
+                            <span class="glyphicon glyphicon-trash"></span>&nbsp Obriši</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+        }
+
+        else
+        {
+            i++;    
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail center-block">
+            <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })'>
+            <img src="@imgSrc" alt="Nema slike" />
+                </a>
+            <div class="caption">
+                <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = item.JeloID })' class="naslovi">
+                    <h3>@Html.DisplayFor(modelItem => item.NazivJela)
+                    </h3>
+                </a>
+                <div>
+                    @*<a href="#" class="btn nice-green-color" role="button">Uredi</a>*@
+                    <a href='@Url.Action("Delete", "Recept", new { id = item.JeloID })' class="btn btn-sm nice-green-color" role="button">
+                        <span class="glyphicon glyphicon-trash"></span>&nbsp Obriši</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        }
+    }
+    @*<div class="pagedList pull-right">
+        @Html.PagedListPager(Model, page => Url.Action("Profil", "Home", new { page }), PagedListRenderOptions.MinimalWithPageCountText)
+    </div>*@
+    
+    
+    <div class="pagedList pull-right">
+    @Html.PagedListPager(Model,
+
+            page => Url.Action("Profil", new RouteValueDictionary() {
+                {"Page", page},
+                
+                {"Sort", ViewBag.CurrentSort}
+            }),
+
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+}
+
+

@@ -1,0 +1,58 @@
+﻿@model ZavrsniRad.Models.JeloRecept
+
+@{byte[] photo = Model.SlikaJela;
+  string imgSrc = null;
+  if (photo != null)
+  {
+      var base64 = Convert.ToBase64String(photo);
+      imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+  }
+}
+<div class="row">
+    <img src="@imgSrc" alt="Nema slike" class="col-md-4 img-rounded"/>
+
+    <div class="col-md-6 hidden-print">
+        @Html.Action("_Ocjena", "Recept")
+    </div>
+</div>
+<br />
+<div class="row">
+    @{if (Model.GrupaJela != null)
+      {
+        <h4 class="col-md-6">@Html.DisplayFor(model => model.GrupaJela)</h4>
+      }         
+    }
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            @Html.DisplayFor(model => model.Recept)
+        </p>
+    </div>
+    <div class="col-md-6">
+
+        @{ if (Model.ListaSastojaka.Any())
+           {
+            <h4>Sastojci</h4>
+               
+               foreach (ZavrsniRad.Models.SastojakRecept s in Model.ListaSastojaka)
+               {
+            <div class="row">
+                <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = s.SastojakID })' class="col-md-6 col-md-offset-2 naslovi">
+                    @Html.DisplayFor(model => s.NazivJela)</a>
+                <div class="col-md-2">@Html.DisplayFor(model => s.Kolicina)</div>
+                @{
+                   if (s.MjernaJedinicaKratica != null)
+                   {
+                    <div class="col-md-2">@Html.DisplayFor(model => s.MjernaJedinicaKratica)</div>
+                   }
+                }
+            </div>      
+               }
+           }
+        }
+
+    </div>
+</div>

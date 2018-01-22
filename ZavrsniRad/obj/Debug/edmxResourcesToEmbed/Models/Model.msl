@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UpravljanjeRecepturamaBazaModel1StoreContainer" CdmEntityContainer="UpravljanjeRecepturamaBazaEntities1">
+    <EntitySetMapping Name="GrupaJela">
+      <EntityTypeMapping TypeName="UpravljanjeRecepturamaBazaModel1.GrupaJela">
+        <MappingFragment StoreEntitySet="GrupaJela">
+          <ScalarProperty Name="GrupaJelaID" ColumnName="GrupaJelaID" />
+          <ScalarProperty Name="Grupa" ColumnName="Grupa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JedinicaMjere">
+      <EntityTypeMapping TypeName="UpravljanjeRecepturamaBazaModel1.JedinicaMjere">
+        <MappingFragment StoreEntitySet="JedinicaMjere">
+          <ScalarProperty Name="JedinicaMjereID" ColumnName="JedinicaMjereID" />
+          <ScalarProperty Name="Jedinica" ColumnName="Jedinica" />
+          <ScalarProperty Name="Kratica" ColumnName="Kratica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jelo">
+      <EntityTypeMapping TypeName="UpravljanjeRecepturamaBazaModel1.Jelo">
+        <MappingFragment StoreEntitySet="Jelo">
+          <ScalarProperty Name="JeloID" ColumnName="JeloID" />
+          <ScalarProperty Name="NazivJela" ColumnName="NazivJela" />
+          <ScalarProperty Name="SlikaJela" ColumnName="SlikaJela" />
+          <ScalarProperty Name="GrupaJelaID" ColumnName="GrupaJelaID" />
+          <ScalarProperty Name="Recept" ColumnName="Recept" />
+          <ScalarProperty Name="OsobaID" ColumnName="OsobaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ocjena">
+      <EntityTypeMapping TypeName="UpravljanjeRecepturamaBazaModel1.Ocjena">
+        <MappingFragment StoreEntitySet="Ocjena">
+          <ScalarProperty Name="OcjenaID" ColumnName="OcjenaID" />
+          <ScalarProperty Name="Vrijednost" ColumnName="Vrijednost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OcjenaJela">
+      <EntityTypeMapping TypeName="UpravljanjeRecepturamaBazaModel1.OcjenaJela">
+        <MappingFragment StoreEntitySet="OcjenaJela">
+          <ScalarProperty Name="OcjenaJelaID" ColumnName="OcjenaJelaID" />
+          <ScalarProperty Name="OsobaID" ColumnName="OsobaID" />
+          <ScalarProperty Name="JeloID" ColumnName="JeloID" />
+          <ScalarProperty Name="OcjenaID" ColumnName="OcjenaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Osoba">
+      <EntityTypeMapping TypeName="UpravljanjeRecepturamaBazaModel1.Osoba">
+        <MappingFragment StoreEntitySet="Osoba">
+          <ScalarProperty Name="OsobaID" ColumnName="OsobaID" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sastojak">
+      <EntityTypeMapping TypeName="UpravljanjeRecepturamaBazaModel1.Sastojak">
+        <MappingFragment StoreEntitySet="Sastojak">
+          <ScalarProperty Name="SastojakID" ColumnName="SastojakID" />
+          <ScalarProperty Name="JeloID" ColumnName="JeloID" />
+          <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+          <ScalarProperty Name="JedinicaMjereID" ColumnName="JedinicaMjereID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

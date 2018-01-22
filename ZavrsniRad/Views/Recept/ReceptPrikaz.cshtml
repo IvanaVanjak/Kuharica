@@ -1,0 +1,101 @@
+﻿@model ZavrsniRad.Models.JeloRecept
+
+@{
+    ViewBag.Title = "ReceptPrikaz";
+}
+
+<div class="row col-md-12">
+    <h2 class="pull-left nice-green-font">@Html.DisplayFor(model => model.NazivJela)</h2>
+    <br />
+    <a class="btn hidden-print btn-default btn-lg pull-right" href='@Url.Action("PrintInvoice", new { invoiceID = Model.JeloID})'>
+        <span class="glyphicon glyphicon-floppy-save"></span>
+    </a>
+    <a class="btn hidden-print nice-green-color btn-default btn-lg pull-right" href='@Url.Action("Novi", "Recept")'>
+        <span class="glyphicon glyphicon-plus"></span>&nbsp Dodaj recept
+    </a>
+
+</div>
+
+
+
+@{Html.RenderPartial("_ReceptPrikaz");}
+
+@if (ViewBag.Message != null)
+{
+    <div class="field-validation-error">
+        @ViewBag.Message
+
+    </div>
+}
+
+
+@*@{byte[] photo = Model.SlikaJela;
+  string imgSrc = null;
+  if (photo != null)
+  {
+      var base64 = Convert.ToBase64String(photo);
+      imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+  }
+}
+<div class="row">
+    <img src="@imgSrc" alt="Nema slike" class="col-md-4 img-rounded"/>
+
+    <div class="col-md-6">
+        @Html.Action("_Ocjena", "Recept")
+    </div>
+</div>
+<br />
+<div class="row">
+    @{if (Model.GrupaJela != null)
+      {
+        <h4 class="col-md-6">@Html.DisplayFor(model => model.GrupaJela)</h4>
+      }         
+    }
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            @Html.DisplayFor(model => model.Recept)
+        </p>
+    </div>
+    <div class="col-md-6">
+
+        @{ if (Model.ListaSastojaka.Any())
+           {
+            <h4>Sastojci</h4>
+               
+               foreach (ZavrsniRad.Models.SastojakRecept s in Model.ListaSastojaka)
+               {
+            <div class="row">
+                <a href='@Url.Action("ReceptPrikaz", "Recept", new { id = s.SastojakID })' class="col-md-6 col-md-offset-2 naslovi">
+                    @Html.DisplayFor(model => s.NazivJela)</a>
+                <div class="col-md-2">@Html.DisplayFor(model => s.Kolicina)</div>
+                @{
+                   if (s.MjernaJedinicaKratica != null)
+                   {
+                    <div class="col-md-2">@Html.DisplayFor(model => s.MjernaJedinicaKratica)</div>
+                   }
+                }
+            </div>      
+               }
+           }
+        }
+
+    </div>
+</div>*@
+
+
+@if (Request.IsAuthenticated && ViewData.ContainsKey("FullName"))
+{
+    if (HttpContext.Current.User.Identity.Name.Equals(Model.Email))
+    {
+    <p>
+        @*<a href='@Url.Action("Edit", "Recept", new { id = Model.JeloID })' class="btn nice-green-color" role="button">Uredi</a>*@
+        <a href='@Url.Action("Delete", "Recept", new { id = Model.JeloID })' class="btn hidden-print btn-default btn-sm nice-green-color" role="button">
+            <span class="glyphicon glyphicon-trash"></span>&nbsp Obriši</a>
+    </p>
+    }
+}
+<br />

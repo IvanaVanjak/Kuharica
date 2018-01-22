@@ -1,0 +1,85 @@
+﻿@model ZavrsniRad.Models.SearchViewModel
+
+@{
+    ViewBag.Title = "Pretraga";
+}
+
+@section JavaScript
+{
+    <script src="~/Scripts/listEditor.js"></script>
+}
+<script src="~/Scripts/jquery-1.9.0.js"></script>
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+
+<div class="row col-md-12">
+    <h2 class="pull-left"><span class="glyphicon glyphicon-search"></span>&nbsp Pretraga</h2>
+    <br />
+    <a class="btn nice-green-color btn-lg btn-default pull-right" href="@Url.Action("Novi", "Recept")">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp Dodaj recept
+    </a>
+
+</div>
+
+@using (Html.BeginForm("Recepti", "Home", FormMethod.Get, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-md-offset-2">
+        <div class="row">
+            <br />
+        </div>
+        <fieldset>
+            <legend>Pronađi recept
+            </legend>
+
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.JeloID, new { @class = "control-label" })
+                    @Html.HiddenFor(m => m.JeloID,
+    new { id = "JeloID" })
+                    <input type="text" class="form-control" id="search" placeholder="Jelo" />
+                </div>
+
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.GrupaJelaID, new { @class = "control-label" })
+                    @foreach (var a in Model.GrupeJela)
+                    {
+                        <p>
+                            @Html.RadioButtonFor(model => model.GrupaJelaID, a.GrupaJelaID)  @a.Grupa
+                        </p>
+                    }
+
+                </div>
+
+                <div class="form-group">
+                   <p> @Html.LabelFor(model => model.OcjenaID, new { @class = "control-label" })</p>
+                    @foreach (var a in Model.Ocjene)
+                    {
+                        <span>
+                            @Html.RadioButtonFor(model => model.OcjenaID, a.OcjenaID)  @a.Vrijednost
+                            &nbsp</span>
+                    }
+                </div>
+
+                 <div class="form-group">
+
+                @Html.LabelFor(model => model.Sastojci, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Sastojci, new { @class = "form-control", @placeholder="Sastojci" })
+                @Html.ValidationMessageFor(model => model.Sastojci)
+            </div>
+
+                <div class="row">
+                    <button type="submit" class="btn btn-default nice-green-color" value="Search">Pretraži</button>
+                </div>
+                <div class="row"><br /></div>
+            </form>
+        </fieldset>
+    </div>
+}
+

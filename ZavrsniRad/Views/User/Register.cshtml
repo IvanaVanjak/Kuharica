@@ -1,0 +1,61 @@
+﻿@model ZavrsniRad.Models.Osoba
+
+@{
+    ViewBag.Title = "Registracija";
+}
+
+<div class="row"> <br /></div>
+
+@using (Html.BeginForm())
+{
+    <div class="col-md-4 col-md-offset-4">
+        @Html.ValidationSummary(true, "Registracija nije uspjela.")
+
+    <fieldset>
+        <legend>Registracija</legend>
+        @Html.AntiForgeryToken()
+        @if (ViewBag.Message != null)
+        {
+            <div style="border: solid 1px green">
+                @ViewBag.Message
+            </div>
+        }
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Ime, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Ime, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Ime)
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Prezime, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Prezime, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Prezime)
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email)
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Lozinka, new { @class = "control-label" })
+            @Html.PasswordFor(model => model.Lozinka, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Lozinka)
+
+        </div>
+
+        <button type="submit" class="btn btn-default nice-green-color">Registracija</button>
+
+        <div><br /></div>
+    </fieldset>
+    </div>
+}
+<br />

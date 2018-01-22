@@ -1,0 +1,5 @@
+﻿@media only print {
+    #header, #footer, #sidebar3, #Actions, #nav {
+        display: none !important;
+    }
+}
